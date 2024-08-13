@@ -20,6 +20,6 @@ namespace Staff_Management.Entities
         public string Description { get; set; }
 
         // Navigation Property
-        public ICollection<Employees> Employees { get; set; }
+        public ICollection<Employees> Employees { get; set; } = new List<Employees>();
     }
 }

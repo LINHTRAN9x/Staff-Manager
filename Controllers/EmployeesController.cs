@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Staff_Management.Entities;
-using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
+using Staff_Management.ViewModels;
 namespace Staff_Management.Controllers
 {
     public class EmployeesController : Controller
@@ -14,26 +14,38 @@ namespace Staff_Management.Controllers
             _context = context;
         }
 
-        // Hiển thị form thêm mới nhân viên
-        public IActionResult Create()
+        // Hiển thị form thêm nhân viên
+        public IActionResult Create(int departmentId)
         {
-            ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name");
-            return View();
+            var model = new CreateEmployeeViewModel
+            {
+                DepartmentId = departmentId
+            };
+            return View(model);
         }
 
-        // Xử lý thêm mới nhân viên
+        // Xử lý thêm nhân viên
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(Employees employee)
+        public IActionResult Create(CreateEmployeeViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var employee = new Employees
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    DepartmentId = model.DepartmentId
+                };
+
                 _context.Employees.Add(employee);
                 _context.SaveChanges();
                 return RedirectToAction("Index", "Departments");
             }
-            ViewBag.Departments = new SelectList(_context.Departments, "Id", "Name", employee.DepartmentId);
-            return View(employee);
+
+            return View(model);
         }
+
+       
     }
 }

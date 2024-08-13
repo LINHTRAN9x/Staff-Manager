@@ -1,26 +1,24 @@
-﻿@model Staff_Management.Entities.Employees
+﻿@model Staff_Management.ViewModels.CreateEmployeeViewModel
 
 @{
-    ViewData["Title"] = "Add New Employee";
+    ViewData["Title"] = "Add Employee";
 }
 
-<h2>Add New Employee</h2>
+<h2>@ViewData["Title"]</h2>
 
-<form asp-action="Create">
+<form asp-action="Create" method="post">
     <div class="form-group">
-        <label asp-for="Name"></label>
+        <label asp-for="Name" class="control-label"></label>
         <input asp-for="Name" class="form-control" />
         <span asp-validation-for="Name" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Email"></label>
+        <label asp-for="Email" class="control-label"></label>
         <input asp-for="Email" class="form-control" />
         <span asp-validation-for="Email" class="text-danger"></span>
     </div>
+    <input type="hidden" asp-for="DepartmentId" />
     <div class="form-group">
-        <label asp-for="DepartmentId">Department</label>
-        <select asp-for="DepartmentId" class="form-control" asp-items="ViewBag.Departments"></select>
-        <span asp-validation-for="DepartmentId" class="text-danger"></span>
+        <input type="submit" value="Save" class="btn btn-primary" />
     </div>
-    <button type="submit" class="btn btn-primary">Add Employee</button>
 </form>

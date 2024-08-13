@@ -136,3 +136,4 @@ C:\SchoolFolder\WebApplication1\Staff Management\obj\Debug\net8.0\refint\Staff M
 C:\SchoolFolder\WebApplication1\Staff Management\obj\Debug\net8.0\Staff Management.pdb
 C:\SchoolFolder\WebApplication1\Staff Management\obj\Debug\net8.0\Staff Management.genruntimeconfig.cache
 C:\SchoolFolder\WebApplication1\Staff Management\obj\Debug\net8.0\ref\Staff Management.dll
+C:\SchoolFolder\WebApplication1\Staff Management\obj\Debug\net8.0\Staff Management.sourcelink.json

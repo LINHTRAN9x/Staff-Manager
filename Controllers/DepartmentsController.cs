@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Staff_Management.Entities;
-using System.Linq;
 
 namespace Staff_Management.Controllers
 {
@@ -17,7 +16,9 @@ namespace Staff_Management.Controllers
         // Hiển thị danh sách phòng ban
         public IActionResult Index()
         {
-            var departments = _context.Departments.ToList();
+            var departments = _context.Departments
+                              .Include(d => d.Employees) // Bao gồm danh sách nhân viên
+                              .ToList();
             return View(departments);
         }
 
@@ -40,6 +41,8 @@ namespace Staff_Management.Controllers
             }
             return View(department);
         }
+
+
 
         // Hiển thị form sửa phòng ban
         public IActionResult Edit(int id)
@@ -88,23 +91,13 @@ namespace Staff_Management.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var department = _context.Departments.Find(id);
-            _context.Departments.Remove(department);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
-        public IActionResult Details(int id)
-        {
-            var department = _context.Departments
-                                     .Include(d => d.Employees)
-                                     .FirstOrDefault(d => d.Id == id);
             if (department == null)
             {
                 return NotFound();
             }
-            return View(department);
+            _context.Departments.Remove(department);
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
         }
-
-
     }
 }
